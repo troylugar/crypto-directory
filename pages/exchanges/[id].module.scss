@@ -1,0 +1,91 @@
+@import '../../styles/variables.scss';
+
+.tr {
+  @apply grid grid-cols-4;
+  grid-template-columns: 3fr 3fr 4fr 2fr;
+
+  & > * {
+    @apply md:px-4 md:py-2 md:overflow-x-scroll;
+  }
+}
+
+.th {
+  @apply font-bold text-white bg-green-500 text-xl border-b-4 border-green-600;
+
+  & > *:not(:last-child) {
+    @apply border-green-600 border-r-2;
+  }
+}
+
+.tr-data {
+  @apply text-lg md:border-b-2 border-green-900 border-opacity-20;
+
+  & > *:not(:last-child) {
+    @apply md:border-r-2 border-gray-200;
+  }
+
+  .ticker {
+    @apply font-bold text-green-600;
+  }
+
+  .last,
+  .volume,
+  .spread {
+    @apply md:text-right;
+    font-family: $mono-font-family;
+  }
+}
+
+.def-list {
+  @apply mb-12 text-xl md:text-2xl 2xl:w-2/3 lg:w-3/4;
+
+  dt {
+    @apply font-bold text-black;
+  }
+  dd {
+    @apply md:ml-12 mb-4 text-black whitespace-pre-wrap;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .th {
+    @apply hidden bg-purple-500;
+  }
+
+  .tr-data {
+    @apply flex flex-col border-2 shadow rounded-xl my-6 p-6 max-w-xs mx-auto;
+
+    & > * {
+      @apply p-0;
+    }
+
+    .ticker {
+      @apply text-center text-3xl;
+    }
+
+    .last,
+    .volume,
+    .spread {
+      @apply ml-4 mt-2 text-2xl;
+    }
+
+    .last:before,
+    .volume:before,
+    .spread:before {
+      @apply block text-lg underline-offset-2 underline;
+      font-family: $sans-font-family;
+    }
+
+    .last:before {
+      content: 'price';
+    }
+
+    .volume:before {
+      content: 'volume';
+    }
+
+    .spread:before {
+      content: 'spread';
+    }
+  }
+}

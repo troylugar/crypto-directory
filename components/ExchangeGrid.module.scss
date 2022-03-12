@@ -1,0 +1,70 @@
+@import '../styles/variables.scss';
+
+.exchange {
+  @apply md:shadow-lg shadow-stone-200 text-xl grid grid-cols-1 w-64 mx-auto sm:w-auto sm:grid-cols-2 md:block gap-8;
+}
+
+.th,
+.tr-data {
+  @apply grid grid-flow-col;
+  grid-template-columns: 1fr 5fr 3fr 2fr;
+}
+
+.th,
+.tr {
+  @apply py-4 px-6;
+}
+
+.tr {
+  @apply items-center
+    m-0
+    bg-white
+    border-2
+    border-transparent;
+  transition: transform 200ms $exp-curve, border 200ms $exp-curve;
+}
+
+.tr:hover {
+  @apply border-slate-200 bg-slate-50 cursor-pointer;
+  transform: scale(1.05);
+}
+
+.th {
+  @apply bg-green-500 text-white text-2xl font-bold;
+  font-family: $heading-font-family;
+}
+
+.name-container {
+  @apply flex items-center md:gap-6;
+}
+
+.name {
+  @apply font-bold md:font-normal;
+}
+
+@media screen and (max-width: 767px) {
+  .th {
+    @apply hidden;
+  }
+  .tr {
+    @apply border-slate-400
+    rounded
+    relative
+    flex flex-col justify-around
+    text-center
+    gap-2;
+  }
+
+  .rank:before {
+    margin-right: -0.5em;
+    content: '#';
+  }
+  .rank {
+    @apply absolute bg-slate-600 rounded-full w-10 h-10 text-white flex justify-around items-center;
+    top: -1em;
+    left: -1em;
+  }
+  .name-container {
+    @apply flex-col md:items-center text-2xl gap-2;
+  }
+}

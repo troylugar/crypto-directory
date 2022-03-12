@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, Segoe UI,
+    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+.heading {
+  font-family: 'Space Mono', sans-serif;
+  font-weight: bold;
+}
+
+.container {
+  @apply w-9/12 mx-auto;
+}
+
+a {
+  position: relative;
+}
+
+a[target^='_']:after {
+  content: '\02197';
+  position: absolute;
+  top: -1em;
+  right: -1em;
+  font-size: 0.5em;
+}
+
+.shimmer {
+  color: transparent;
+  width: 100%;
+  height: 1em;
+  animation: shimmer-full-view 2s infinite linear;
+  background: linear-gradient(to right, #eff1f3 4%, #e2e2e2 25%, #eff1f3 36%);
+  background-size: 1000px 100%;
+}
+
+@keyframes shimmer-full-view {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes shimmer-animation {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
