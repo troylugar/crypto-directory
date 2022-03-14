@@ -21,7 +21,6 @@ export async function getExchangeIds() {
 }
 
 export async function getExchangeSummaries({ itemsPerPage, page }) {
-  console.log('getting exchange summaries');
   const res = await api.get('/exchanges', {
     params: { per_page: itemsPerPage, page: page },
   });

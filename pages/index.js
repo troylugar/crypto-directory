@@ -3,9 +3,12 @@ import { useEffect, useState } from 'react';
 import ExchangeGrid from '../components/ExchangeGrid';
 import Button from '../components/common/Button';
 import { getExchangeSummaries } from '../apis/coingecko';
+import { useRouter } from 'next/router';
 
 export default function Home() {
-  const [page, setPage] = useState(1);
+  const router = useRouter();
+  const { page: pageQuery } = router.query;
+  const [page, setPage] = useState(pageQuery ?? 1);
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
@@ -15,6 +18,19 @@ export default function Home() {
       setIsLoading(false);
     });
   }, [page, setData]);
+  const gotoPage = (newPage) => {
+    setPage(newPage);
+    router.push(
+      {
+        pathname: '/',
+        query: {
+          page: newPage,
+        },
+      },
+      { pathname: '/' },
+      { shallow: false, scroll: false }
+    );
+  };
   return (
     <>
       <Head>
@@ -27,18 +43,18 @@ export default function Home() {
       </Head>
 
       <main className="max-w-5xl mx-auto p-16 mb-16">
-        <header className="mb-16 heading text-green-500 text-center text-5xl md:text-7xl">
+        <header className="mb-16 heading text-center">
           Top Crypto Exchanges
         </header>
         <ExchangeGrid isLoading={isLoading} nItems={10} data={data} />
 
         <div className="mt-8 clear-right">
           {page > 1 && (
-            <Button onClick={() => setPage(page - 1)}>
+            <Button onClick={() => gotoPage(page - 1)}>
               &larr; <span className="hidden md:inline">Previous</span>
             </Button>
           )}
-          <Button className="float-right" onClick={() => setPage(page + 1)}>
+          <Button className="float-right" onClick={() => gotoPage(page + 1)}>
             <span className="hidden md:inline">Next</span> &rarr;
           </Button>
         </div>

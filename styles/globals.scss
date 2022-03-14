@@ -20,8 +20,29 @@ h1,
 h2,
 h3,
 .heading {
+  @apply text-green-500;
   font-family: 'Space Mono', sans-serif;
   font-weight: bold;
+}
+
+.heading {
+  @apply text-5xl md:text-7xl;
+}
+
+h1 {
+  @apply text-4xl md:text-5xl;
+}
+
+h2 {
+  @apply text-3xl md:text-4xl;
+}
+
+h3 {
+  @apply text-2xl md:text-3xl;
+}
+
+.text-primary {
+  @apply text-green-500;
 }
 
 .container {

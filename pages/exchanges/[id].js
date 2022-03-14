@@ -19,22 +19,24 @@ export default function Exchange() {
       });
     }
   }, [id, data, setData, setIsLoading]);
+  const back = () =>
+    window.history.length > 0 ? router.back() : router.push('/');
   return isLoading ? (
     <Loader global={true} />
   ) : (
     <div className="px-8 max-w-5xl mx-auto">
-      <Button onClick={() => router.push('/')} className="my-16">
-        &larr; Home
+      <Button onClick={back} className="my-16">
+        &larr; Back
       </Button>
-      <div className="text-green-500">
+      <section className="text-primary">
         #{data.trust_score_rank}
-        <div>
+        <header>
           {/* the image provided by the api is pretty low res, I think this page would look better without it */}
           {/* <Image src={data.image} alt={`${data.name} logo`} width={50} height={50} /> */}
-          <div className="heading text-7xl mb-6">{data.name}</div>
-        </div>
+          <div className="mb-6 heading">{data.name}</div>
+        </header>
         <Metadata {...data} />
-      </div>
+      </section>
       <div className="mb-16">
         <TickerTable {...data} />
       </div>
@@ -44,10 +46,12 @@ export default function Exchange() {
 
 function TickerTable({ tickers }) {
   return (
-    <>
-      <div className="mb-4 text-5xl font-bold text-green-500">
-        Latest Quotes
-      </div>
+    <section>
+      <header>
+        <h1 className="mb-4 text-4xl md:text-5xl font-bold subheading">
+          Latest Quotes
+        </h1>
+      </header>
       <div className={classNames(styles.th, styles.tr)}>
         <div>Ticker</div>
         <div>Latest Price</div>
@@ -71,7 +75,7 @@ function TickerTable({ tickers }) {
             </div>
           </div>
         ))}
-    </>
+    </section>
   );
 }
 
@@ -105,7 +109,6 @@ function Metadata({ country, year_established, description }) {
 // would still need to request updated ticker data client-side
 
 // export async function getStaticPaths() {
-//   console.log("getting static paths")
 //   const paths = await getExchangeIds();
 //   return {
 //     paths: paths?.map(x => ({ params: { id: x.id } })),
