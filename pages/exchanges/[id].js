@@ -1,10 +1,12 @@
 import { useRouter } from 'next/router';
 import Button from '../../components/common/Button';
 import Loader from '../../components/common/Loader';
-import { useEffect, useState } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import { getExchangeById } from '../../apis/coingecko';
 import styles from './[id].module.scss';
 import classNames from 'classnames';
+import Link from 'next/link';
+import { SocialIcon } from 'react-social-icons';
 
 export default function Exchange() {
   const router = useRouter();
@@ -21,6 +23,21 @@ export default function Exchange() {
   }, [id, data, setData, setIsLoading]);
   const back = () =>
     window.history.length > 0 ? router.back() : router.push('/');
+
+  const socialUrls = useMemo(
+    () => [
+      data?.facebook_url,
+      data?.telegram_url,
+      data?.reddit_url,
+      data?.slack_url,
+      data?.other_url_1,
+      data?.other_url_2,
+      data?.twitter_handle
+        ? `https://www.twitter.com/${data.twitter_handle}`
+        : '',
+    ],
+    [data]
+  );
   return isLoading ? (
     <Loader global={true} />
   ) : (
@@ -29,12 +46,22 @@ export default function Exchange() {
         &larr; Back
       </Button>
       <section className="text-primary">
-        #{data.trust_score_rank}
+        <div>#{data.trust_score_rank}</div>
         <header>
           {/* the image provided by the api is pretty low res, I think this page would look better without it */}
           {/* <Image src={data.image} alt={`${data.name} logo`} width={50} height={50} /> */}
           <div className="mb-6 heading">{data.name}</div>
         </header>
+        <div className="flex flex-row gap-4 mb-8">
+          {socialUrls.map(
+            (url) =>
+              url && (
+                <Link key={url} href={url}>
+                  <SocialIcon url={url} />
+                </Link>
+              )
+          )}
+        </div>
         <Metadata {...data} />
       </section>
       <div className="mb-16">
