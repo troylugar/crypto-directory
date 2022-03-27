@@ -5,7 +5,7 @@
   grid-template-columns: 3fr 3fr 4fr 2fr;
 
   & > * {
-    @apply md:px-4 md:py-2 md:overflow-x-scroll;
+    @apply md:px-4 md:py-2 md:overflow-x-scroll md:scrollbar-hide;
   }
 }
 
